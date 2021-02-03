@@ -1,0 +1,53 @@
+body {
+    background-color:beige;
+    font-family: courier;
+}
+
+#combatTerminal {
+    height : 300px;
+    width : 600px;
+    border-style : solid solid solid solid;
+    border-color: brown brown brown brown;
+    border : 3px 3px 3px 3px;
+    display: grid;
+    grid-template-columns: 100px 400px 100px;
+    margin: 0%;
+    padding: 0%;
+    background-color: tan;
+}
+
+#combatReport{
+    height : 300px;
+     border-left: 3px solid brown;
+    border-right: 3px solid brown;
+    display: flex;
+    flex-flow:row;
+    margin: 0%;
+    padding: 0%;
+    overflow-y:scroll;
+    font-weight: bold;
+    background-color: tan; 
+}
+
+#opponentOnestats{
+    height: 300px;
+    border-style : solid solid solid solid;
+    border-color: brown brown brown brown;
+    border : 3px 3px 3px 3px;
+    display: flex;
+    flex-flow:row;
+    background-color: tan;
+    margin: 5px 5px 5px 5px;
+}
+
+#opponentTwostats{
+    height: 300px;
+    border-style : solid solid solid solid;
+    border-color: brown brown brown brown;
+    border : 3px 3px 3px 3px;
+    display: flex;
+    flex-flow:row;
+    background-color: tan;
+    padding: 5px;
+    text-justify: left;
+}
