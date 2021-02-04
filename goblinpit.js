@@ -1,237 +1,256 @@
-/***********************************:
-*Goblin Object Decs
-*/
-var schitter = {
-    name: 'Schitter',
-    alive:true,
-    hp:100,
-    fatigue: 100,
-    conciousness: 100,
-    morale: 100,
-    battleAfflictions : {
-        bleed: 5
-    },
-    strength:5,
-    skill:6,
-    deftness:6,
-    toughness:5,
-    grit:8,
-
-    hitOpponent : function(attacker, defender){
-        defender.hp = defender.hp - (attacker.strength - 
-        defender.toughness/2);
-        return defender.hp;
-    },
-
-    biteOpponent : function(attacker, defender){
-        defender.hp = defender.hp - (attacker.strength - defender.toughness * .5);
-        defender.morale -= 5;
-        ++defender.battleAfflictions.bleed;
-    },
-
-    checkPulse : function(){
-        if (this.hp <= 0){
-            this.alive = false;
-        }
-    },
-
-    checkBleed : function(){
-        if(this.battleAfflictions.bleed > 0){
-            this.hp = this.hp - this.battleAfflictions.bleed;
-            bleedReport = this.name + ' has bled for ' + 
-            this.battleAfflictions.bleed + ' damage!';
-            return bleedReport;
-        }
-    } 
-};
-
-var loo = {
-    name: 'Loo',
-    alive:true,
-    hp:100,
-    fatigue: 100,
-    conciousness: 100,
-    morale: 100,
-    battleAfflictions : {
-        bleed:0
-    },
-    strength:7,
-    skill:4,
-    deftness:5,
-    toughness:6,
-    grit:8,
-
-    hitOpponent : function(attacker, defender){
-        defender.hp = defender.hp - (attacker.strength - 
-        defender.toughness/2);
-        return defender.hp;
-    },
-
-    biteOpponent : function(biter, bitee){
-        bitee.hp = bitee.hp - (biter.strength - bitee.toughness * .5);
-        bitee.morale -= 5;
-        ++bitee.battleAfflictions.bleed;
-    },
-
-    checkPulse : function(){
-        if (this.hp <= 0){
-        this.alive = false;
-        }
-    },
-
-    checkBleed : function(){
-        if(this.battleAfflictions.bleed > 0){
-            this.hp = this.hp - this.battleAfflictions.bleed;
-            console.log(this.name + ' has bled for ' + 
-            this.battleAfflictions.bleed + ' damage!');
-        }
-    } 
-};
-
-
-/*****************************
- * Var Decs
+/*********************************************************:
+ * Class Declarations, Constructors, and Constructor Functions
  */
 
-var actionInputText= document.querySelector('actionInput text')
-var actionInputButton = document.getElementById('inputButton')    
-var combatReport = document.getElementById('combatReport')
-var opponentOneStats = document.getElementById('opponentOneStats')
-var opponentTwoStats = document.getElementById('opponentTwoStats')
+const goblinRandomizer = {
+  
+    idGen :  function (){
+      return '_' + Math.random().toString(36).substr(2, 9);
+      
+    },
+    
+    nameGen : function (){
+      let nameList = ['Doodle' , 'Scattacker' , 'Loo', 'Gramby' , 'Greasetown' , 'Linda' , 'Flung', 'Granglescoot III', 'Abe', 'Dung']  
+      let randInteger = Math.floor(Math.random() * nameList.length);
+      return nameList[randInteger];
+      
+    },
+  
+    hpGen : function (){
+        let hpFloor = 50;
+        let hpVariance = Math.floor(Math.random()*101)
+        return hpFloor + hpVariance;
+    },
+    fatigueGen : function (){
+      let fatigueFloor = 50;
+      let fatigueVariance = Math.floor(Math.random()*101)
+      return fatigueFloor + fatigueVariance;
+    },
+    consciousnessGen : function (){
+      let consciousnessFloor = 50;
+      let consciousnessVariance = Math.floor(Math.random()*101)
+      return consciousnessFloor + consciousnessVariance;
+    },
+    moraleGen : function (){
+      let moraleFloor = 50;
+      let moraleVariance = Math.floor(Math.random()*101)
+      return moraleFloor + moraleVariance;
+    },  
+    strGen : function (){
+      let strFloor = 1;
+      let strVariance = Math.floor(Math.random()*10)
+      return strFloor + strVariance;
+    },
+    sklGen : function (){
+      let sklFloor = 1;
+      let sklVariance = Math.floor(Math.random()*10)
+      return sklFloor + sklVariance;
+    },
+    defGen : function (){
+      let defFloor = 1;
+      let defVariance = Math.floor(Math.random()*10)
+      return defFloor + defVariance;
+    },
+    gritGen : function (){
+      let gritFloor = 1;
+      let gritVariance = Math.floor(Math.random()*10)
+      return gritFloor + gritVariance;
+    },
+    toughGen : function (){
+      let toughFloor = 1;
+      let toughVariance = Math.floor(Math.random()*10)
+      return toughFloor + toughVariance;
+    },
+    
+    
+}
+  
+class goblin{
+    constructor(id, name, hp, fatigue, consciousness, morale, strength, skill, deftness, toughness, grit){
+        this.id = id;
+        this.name = name;
+        this.hp = hp;
+        this.fatigue = fatigue;
+        this.consciousness = consciousness;
+        this.morale = morale;
+        this.strength = strength;
+        this.skill = skill;
+        this.deftness = deftness;
+        this.toughness = toughness;
+        this.grit = grit;
 
-/*****************
- * Function Decs
+        this.checkPulse = function(){
+        if (this.hp<=0){
+        this.alive = false;        
+        }
+        console.log('It worked.');
+        }
+    
+    
+    }
+}
+
+const gobboSpawner = function(){
+let newGobbo = new goblin(
+    goblinRandomizer.idGen(),
+    goblinRandomizer.nameGen(),
+    goblinRandomizer.hpGen(),
+    goblinRandomizer.fatigueGen(),
+    goblinRandomizer.consciousnessGen(),
+    goblinRandomizer.moraleGen(),
+    goblinRandomizer.strGen(),
+    goblinRandomizer.sklGen(),
+    goblinRandomizer.defGen(),
+    goblinRandomizer.toughGen(),
+    goblinRandomizer.gritGen())
+return newGobbo;
+}
+  
+/****************************************
+ * Combat Objects and Methods
  */
 
-const loopTurn = function(gobbo1, gobbo2){
-    checkStats(gobbo1, gobbo2);
-    reportStats(gobbo1);
-    reportStats(gobbo2);
-};
+const combatCheck = {
 
-const checkStats = function(gobbo1, gobbo2){
-    gobbo1.checkPulse();
-    gobbo2.checkPulse();
-    gobb1.checkBleed();
-    gobbo2.checkBleed();
-};
+    isHit : null,
+    damage : null,
 
-const reportStats = function(gobbo){
+    getDamage : function(attacker , defender){
+        let damageValue = (attacker.strength - defender.toughness/2)
+        defender.hp = defender.hp - damageValue;
+        if(damageValue < 0){damageValue = 0}
+        this.damage = damageValue;
+    },
 
-};
+    getIntervalSequence : function(value, step){   //Calculates diminishing returns for any given interval
+        stepAmt = Math.abs(value/step);
+        stepValue = 1;
+        totalValue = 0;
+        for (i = 0 ; i < stepAmt + 1; i++){
+            totalValue += .5**stepValue;
+            stepValue++;
+
+        }
+        return totalValue;
+    },
+
+    getIsHit : function(attacker, defender){
+        let accuracy = attacker.skill - defender.deftness;
+        accuracyMagnitude = Math.abs(combatCheck.getIntervalSequence(accuracy, 5)); //5 is set as the default accuracy step interval
+        let hitVariance = Math.random(); //No longer needs to be a whole number.
+        if (accuracy < 0 && accuracyMagnitude !== 0){
+            trueAccuracy = 1 - accuracyMagnitude;
+        } else {
+            trueAccuracy = accuracyMagnitude;
+        };
+        if (trueAccuracy <= hitVariance){
+            this.isHit = true;
+        } else{
+            this.isHit = false;
+        }
+    }
+
+}
+
+const combatReports = {
+
+    reportMiss : function(protagonist, antagonist){
+         reportString = protagonist.name + ' missed ' + antagonist.name + '!';
+        console.log(reportString);
+    },
+
+    reportHit : function(protagonist, antagonist){
+        reportString = protagonist.name + ' hit ' + antagonist.name + '!';
+        console.log(reportString);
+    },
+
+    reportDamage : function(protagonist, antagonist){
+        reportString = protagonist.name + ' dealt ' + combatCheck.damage + ' damage to ' + antagonist.name + '!';
+        console.log(reportString);
+    },
+}
+
+const combatLoop = {
+
+    protagonist : null,
+    antagonist : null,
+
+    mainLoop : function(){
+    },
+
+    attack : function(){
+        combatCheck.getIsHit(this.protagonist, this.antagonist);
+        if (combatCheck.isHit){combatReports.reportHit(this.protagonist, this.antagonist)}
+        else {
+            (combatReports.reportMiss(this.protagonist, this.antagonist));
+            return;
+        };
+        combatCheck.getDamage(this.protagonist, this.antagonist);
+        combatReports.reportDamage(this.protagonist, this.antagonist);
+    }
+
+}
+
+/******************************************************
+ * GUI functions and variables
+ */
+
+const actionInputButton = document.getElementById('inputButton');  
+const combatConsole = document.getElementById('combatConsole');
+const combatantStats = document.getElementById('combatantStats');
+
+const displayCombatantStats = function(combatant){
+
+    combatantStats.appendChild(document.createTextNode(combatant.name));
+    combatantStats.appendChild(document.createElement("br")); 
+    combatantStats.appendChild(document.createElement("br"));
+    combatantStats.appendChild(document.createTextNode('HP: ' + combatant.hp));
+    combatantStats.appendChild(document.createElement("br"));
+    combatantStats.appendChild(document.createTextNode('FAT: ' + combatant.fatigue));
+    combatantStats.appendChild(document.createElement("br")); 
+    combatantStats.appendChild(document.createTextNode('CONS: ' + combatant.consciousness));
+    combatantStats.appendChild(document.createElement("br")); 
+    combatantStats.appendChild(document.createTextNode('MOR: ' + combatant.morale));
+    combatantStats.appendChild(document.createElement("br")); 
+    combatantStats.appendChild(document.createElement("br")); 
+    combatantStats.appendChild(document.createTextNode('STR: ' + combatant.strength));
+    combatantStats.appendChild(document.createElement("br")); 
+    combatantStats.appendChild(document.createTextNode('SKL: ' + combatant.skill));
+    combatantStats.appendChild(document.createElement("br")); 
+    combatantStats.appendChild(document.createTextNode('DFT: ' + combatant.deftness));
+    combatantStats.appendChild(document.createElement("br")); 
+    combatantStats.appendChild(document.createTextNode('TGH: ' + combatant.toughness));
+    combatantStats.appendChild(document.createElement("br")); 
+    combatantStats.appendChild(document.createTextNode('GRT: ' + combatant.grit));
+    combatantStats.appendChild(document.createElement("br")); 
+}
 
 const reportCombat = function(reportString){ 
     combatReport.appendChild(document.createTextNode(reportString));
     combatReport.appendChild(document.createElement("br")); 
 };
 
-const displayCombatantOneStats = function(combatant){
-    opponentOneStats.appendChild(document.createTextNode(combatant.name));
-    opponentOneStats.appendChild(document.createElement("br"));
-    opponentOneStats.appendChild(document.createTextNode('HP: ' + combatant.hp));
-    opponentOneStats.appendChild(document.createElement("br"));
-    opponentOneStats.appendChild(document.createTextNode('FAT: ' + combatant.fatigue));
-    opponentOneStats.appendChild(document.createElement("br")); 
-    opponentOneStats.appendChild(document.createTextNode('CONS: ' + combatant.conciousness));
-    opponentOneStats.appendChild(document.createElement("br")); 
-    opponentOneStats.appendChild(document.createTextNode('MOR: ' + combatant.morale));
-    opponentOneStats.appendChild(document.createElement("br")); 
-    opponentOneStats.appendChild(document.createTextNode('STR: ' + combatant.strength));
-    opponentOneStats.appendChild(document.createElement("br")); 
-    opponentOneStats.appendChild(document.createTextNode('SKL: ' + combatant.skill));
-    opponentOneStats.appendChild(document.createElement("br")); 
-    opponentOneStats.appendChild(document.createTextNode('DFT: ' + combatant.deftness));
-    opponentOneStats.appendChild(document.createElement("br")); 
-    opponentOneStats.appendChild(document.createTextNode('TGH: ' + combatant.toughness));
-    opponentOneStats.appendChild(document.createElement("br")); 
-    opponentOneStats.appendChild(document.createTextNode('GRT: ' + combatant.grit));
-    opponentOneStats.appendChild(document.createElement("br")); 
-}
-
-const displayCombatantTwoStats = function(combatant){
-    opponentTwoStats.appendChild(document.createTextNode(combatant.name));
-    opponentTwoStats.appendChild(document.createElement("br"));
-    opponentTwoStats.appendChild(document.createTextNode('HP: ' + combatant.hp));
-    opponentTwoStats.appendChild(document.createElement("br"));
-    opponentTwoStats.appendChild(document.createTextNode('FAT: ' + combatant.fatigue));
-    opponentTwoStats.appendChild(document.createElement("br")); 
-    opponentTwoStats.appendChild(document.createTextNode('CONS: ' + combatant.conciousness));
-    opponentTwoStats.appendChild(document.createElement("br")); 
-    opponentTwoStats.appendChild(document.createTextNode('MOR: ' + combatant.morale));
-    opponentTwoStats.appendChild(document.createElement("br")); 
-    opponentTwoStats.appendChild(document.createTextNode('STR: ' + combatant.strength));
-    opponentTwoStats.appendChild(document.createElement("br")); 
-    opponentTwoStats.appendChild(document.createTextNode('SKL: ' + combatant.skill));
-    opponentTwoStats.appendChild(document.createElement("br")); 
-    opponentTwoStats.appendChild(document.createTextNode('DFT: ' + combatant.deftness));
-    opponentTwoStats.appendChild(document.createElement("br")); 
-    opponentTwoStats.appendChild(document.createTextNode('TGH: ' + combatant.toughness));
-    opponentTwoStats.appendChild(document.createElement("br")); 
-    opponentTwoStats.appendChild(document.createTextNode('GRT: ' + combatant.grit));
-    opponentTwoStats.appendChild(document.createElement("br")); 
-}
-
-/*********************
-*Test Functions 
-*/
-
-
-/***********************
- * The Program
+/******************************************************
+ * Code Execution
  */
 
-displayCombatantOneStats(schitter);
-displayCombatantTwoStats(loo);
+combatLoop.protagonist = gobboSpawner();
+combatLoop.antagonist = gobboSpawner();
+
+console.log(combatLoop.protagonist.skill, combatLoop.protagonist.deftness);
+console.log(combatLoop.antagonist);
+
+combatLoop.attack();
 
 actionInputButton.addEventListener('click', function(e){
     e.preventDefault();
-    reportCombat(schitter.checkBleed());
+    reportCombat(combatLoop.attack());
+    
 });
 
+displayCombatantStats(combatLoop.protagonist);
 
-/*******************
- * Old Code
- */
-
-
- /*
-while (schitter.alive && loo.alive) {
-    schitter.checkBleed();
-    schitter.checkPulse();
-    schitterAction = prompt("Does Schitter 'attack' or 'bite'?")
-     if (schitterAction == 'attack') {
-        console.log('Schitter attacks Loo');
-        schitter.hitOpponent (schitter, loo);
-        if (loo.alive == false){
-            console.log('Loo is dead.')
-            break;
-        }
-        console.log('Loo has ' + loo.hp + ' hp');
-    } else if (schitterAction == 'bite') {
-        console.log('Schitter bites Loo!');
-        schitter.biteOpponent(schitter, loo);
-        if (loo.alive == false){
-            console.log('Loo is dead.')
-            break;
-        }
-    } else {
-        console.log('Schitter seems confused.');
-    }
-
-
-    loo.checkPulse();
-    loo.checkBleed();
-    console.log('Loo attacks Schitter');
-    loo.hitOpponent (loo, schitter);
-    if (schitter.alive == false){
-        console.log('Schitter is dead.');
-        break;
-    } 
-    
-    console.log('Loo has ' + loo.hp + ' hp');
-    console.log('Schitter has ' + schitter.hp + ' hp');
-
-
-};
-
-*/
+  /*      Idea for compact randomizer 
+  randomGenerator(orcDef);
+    let variance = Math.floor(Math.random()*orcDef.statGen.ceilingValue);
+    return orcDef.statGen.floor + orc.statGen.variance);*/
