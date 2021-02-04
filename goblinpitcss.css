@@ -16,9 +16,9 @@ body {
     background-color: tan;
 }
 
-#combatReport{
+#combatConsole{
     height : 300px;
-     border-left: 3px solid brown;
+    border-left: 3px solid brown;
     border-right: 3px solid brown;
     display: flex;
     flex-flow:row;
@@ -29,25 +29,28 @@ body {
     background-color: tan; 
 }
 
-#opponentOnestats{
+#combatantStats{
     height: 300px;
-    border-style : solid solid solid solid;
     border-color: brown brown brown brown;
-    border : 3px 3px 3px 3px;
-    display: flex;
-    flex-flow:row;
     background-color: tan;
-    margin: 5px 5px 5px 5px;
 }
 
-#opponentTwostats{
-    height: 300px;
-    border-style : solid solid solid solid;
-    border-color: brown brown brown brown;
-    border : 3px 3px 3px 3px;
-    display: flex;
-    flex-flow:row;
-    background-color: tan;
-    padding: 5px;
-    text-justify: left;
+#leftPanel{
+    grid-template-columns: 10px 90px 10px;
+}
+
+#leftSidePointer{
+    display : inline;
+}
+
+#turnDisplay{
+    justify-content: center;
+    display:inline;
+    color: white;
+    background-color: red;
+    ;
+}
+
+#rightSidePointer{
+    display:inline;
 }
