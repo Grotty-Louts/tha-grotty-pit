@@ -15,17 +15,27 @@
     <h1>You'ze proppa in da pit!</h1> 
     <h2 id = "fightername"></h2>
     <button id ="inputButton">Runnem' Froo</button>
-  <br>
+    <br>
+
   <div id ="combatTerminal">
     <div id = "leftPanel">
-      <div id = "leftSidePointer">→</div>
-      <div id = "turnDisplay">Gobbo</div>
-      <div id = "leftSidePointer">←</div>
-  </div> 
+      <div id = "CombatantTitle">Current Combatant</div>
+      <div id = "currentCombatantDisplay" onmouseover ="" style="cursor:pointer"></div>
+      <hr id = "divider"></hr>
+      <div id = "CombatantTitle">Next Combatant</div> 
+      <div id = "combatantList" onmouseover ="" style="cursor:pointer"></div>
+    </div> 
   <span id="combatConsole"></span>
   <span id ="combatantStats"></span>
   </div>
+
+  <div id = "buttonBox">
+    <button id = "nextTurn">→</button>
+    <p>Next Turn</p>
+  </div>
+
   </center>
+
   <script src="goblinpit.js"></script>
   </body>
 </html>
