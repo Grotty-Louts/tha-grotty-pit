@@ -33,24 +33,52 @@ body {
     height: 300px;
     border-color: brown brown brown brown;
     background-color: tan;
+    font-size: 14px;
 }
 
 #leftPanel{
     grid-template-columns: 10px 90px 10px;
 }
 
-#leftSidePointer{
-    display : inline;
+#CombatantTitle{
+    padding-bottom: 7px;
+    font-size: 14px;
+    font-weight:bolder;
 }
 
-#turnDisplay{
+#currentCombatantDisplay{
     justify-content: center;
     display:inline;
     color: white;
     background-color: red;
-    ;
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-#rightSidePointer{
+#divider{
+    border: 2px;
+    border-bottom-style: ridge;
+    border-color: brown;
+    width: 60px;
+}
+
+#nextTurn{
+    font-size: 18px;
+}
+
+#combatantList{
+    justify-content: center;
     display:inline;
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
